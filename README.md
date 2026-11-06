@@ -111,21 +111,6 @@ The images are validated and re-encoded using the existing image intake helpers;
 their bytes are submitted in evaluation rows and may be retained in Foundry artifacts.
 The existing URL/SAS behavior remains the default (`--image-auth url`).
 
-### NCUS GPT / Fireworks Kimi demo with hosted Blob identity
-
-The [task/action plan](docs/ncus-task-actions.md) and
-[complete NCUS demo runbook](docs/ncus-demo.md) cover the isolated deployment,
-environment files, exact runtime identity role grants, smoke checks, Insights,
-evaluations, and optimizer commands. The existing East US deployment stays unchanged.
-
-`--image-auth hosted` sends Blob basenames in the evaluation query. The updated
-hosted worker downloads images from its configured private container using
-managed/workload identity and attaches inline JPEGs before inference; no local
-Blob login or SAS is needed. Deploy the new worker and grant its actual runtime
-identity **Storage Blob Data Reader** first. Operator Foundry authentication is
-still required. The demo exports and independently checks cloud grades, refusing
-to present transport failures or cloud/local grading disagreements as valid quality.
-
 ### Find and reuse an existing Agent Insights monitor
 
 Run these PowerShell commands from the repository root after installing the requirements.
