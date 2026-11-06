@@ -1,0 +1,14 @@
+# What an optimizer candidate may change. Enforced by optimizer/compare_candidate.py.
+allowed_candidate_files:
+  - metadata.yaml        # model + temperature only (checked below)
+  - instructions.md
+  - tools.json           # descriptions only; names/parameters must not change
+  - skills/**
+allowed_metadata_keys: [model, instruction_file, tools_file, skill_dir, temperature]
+# Business configuration the optimizer must never touch (lives outside .agent_configs/):
+protected_paths: [rules/, policy/, evaluation/release_gates.yaml, evaluation/datasets/]
+promotion:
+  require_all_release_gates: true
+  min_quality_delta: 0.0          # candidate must not be worse than baseline on any gated metric
+  max_token_increase_pct: 50
+  require_manual_approval: true   # printed as a checklist; nothing auto-deploys

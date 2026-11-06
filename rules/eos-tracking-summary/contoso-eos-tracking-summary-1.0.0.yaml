@@ -1,0 +1,54 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-tracking-summary
+version: 1.0.0
+category: eos-tracking-summary
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: ETS-001
+  title: Correct tracking form
+  type: visual_presence
+  weight: 3
+  mandatory: true
+  requirement: Correct EOS tracking summary form.
+  cannotDetermineWhen:
+  - Form title or layout is outside the frame or unreadable
+- id: ETS-002
+  title: Sheet legible
+  type: text_legibility
+  weight: 2.5
+  mandatory: true
+  requirement: Sheet is legible.
+  cannotDetermineWhen:
+  - Image is blurred, glared, too dark or too distant
+- id: ETS-003
+  title: Store identifiable
+  type: date_or_code_readability
+  weight: 2.5
+  mandatory: true
+  requirement: Store information is identifiable.
+  cannotDetermineWhen:
+  - The store fields are cropped, folded or covered
+- id: ETS-004
+  title: Summary readable
+  type: text_legibility
+  weight: 2
+  mandatory: false
+  requirement: Summary information is readable.
+  cannotDetermineWhen:
+  - The summary section is cropped, folded or covered
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

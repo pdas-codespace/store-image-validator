@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "submission_id": "replay",
+  "category": "storefront",
+  "rule_pack": {
+    "id": "contoso-storefront",
+    "version": "1.0.0"
+  },
+  "image_assessment": {
+    "usable": false,
+    "coverage_sufficient": false,
+    "blur": "high",
+    "glare": "low",
+    "occlusion": "low",
+    "issues": [
+      "IMAGE_BLUR",
+      "BRANDING_UNREADABLE"
+    ]
+  },
+  "observations": [],
+  "rule_results": [
+    {
+      "rule_id": "SF-001",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.9,
+      "reason": "Image is too blurred to identify any detail.",
+      "evidence": [],
+      "missing_evidence": [
+        "A sharp image of the storefront"
+      ]
+    },
+    {
+      "rule_id": "SF-002",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.9,
+      "reason": "Image is too blurred to identify any detail.",
+      "evidence": [],
+      "missing_evidence": [
+        "A sharp image of the storefront"
+      ]
+    },
+    {
+      "rule_id": "SF-003",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.9,
+      "reason": "Image is too blurred to identify any detail.",
+      "evidence": [],
+      "missing_evidence": [
+        "A sharp image of the storefront"
+      ]
+    },
+    {
+      "rule_id": "SF-004",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.9,
+      "reason": "Image is too blurred to identify any detail.",
+      "evidence": [],
+      "missing_evidence": [
+        "A sharp image of the storefront"
+      ]
+    }
+  ],
+  "uncertainties": [],
+  "recommended_next_image": "Retake the photo holding the phone steady, focused on the sign, in good light."
+}

@@ -1,0 +1,58 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-pylon
+version: 1.0.0
+category: pylon
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: PY-001
+  title: Valid identification sign
+  type: visual_presence
+  weight: 3
+  mandatory: true
+  requirement: Valid Contoso store identification sign.
+  acceptedAlternatives:
+  - Seasonal banner signs are acceptable.
+  - Plaza directories are acceptable.
+  cannotDetermineWhen:
+  - Sign is outside the frame
+  - image is too blurred or distant to tell what the sign is
+- id: PY-002
+  title: Branding readable
+  type: text_legibility
+  weight: 3
+  mandatory: true
+  requirement: Contoso branding is readable.
+  cannotDetermineWhen:
+  - Sign is blurred, glared or too distant to read
+- id: PY-003
+  title: Branding fills sign area
+  type: spatial_relationship
+  weight: 2
+  mandatory: false
+  requirement: Branding fills the intended sign area.
+  cannotDetermineWhen:
+  - The edges of the sign panel are outside the frame or hidden
+- id: PY-004
+  title: Identifies store location
+  type: visual_presence
+  weight: 2
+  mandatory: false
+  requirement: Sign can easily identify the store location.
+  cannotDetermineWhen:
+  - Too little of the surroundings is visible to relate the sign to the store
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

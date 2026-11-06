@@ -1,0 +1,41 @@
+name: evaluate
+on:
+  pull_request:
+  push: {branches: [main]}
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write   # OIDC to Azure for the live evaluation job (no secrets stored)
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install pyyaml pillow
+      - run: python -m siv validate-rules
+      - run: python -m unittest discover -s tests -t .
+      - run: python evaluation/run_local_eval.py --provider replay   # gates plumbing + scoring regression
+  live:
+    if: github.event_name != 'pull_request' && vars.FOUNDRY_PROJECT_ENDPOINT != ''
+    needs: offline
+    runs-on: ubuntu-latest
+    environment: eval
+    env:
+      FOUNDRY_PROJECT_ENDPOINT: ${{ vars.FOUNDRY_PROJECT_ENDPOINT }}
+      MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME: ${{ vars.MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -r requirements.txt
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - run: python evaluation/run_local_eval.py --provider foundry-model --repeats 2
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: eval-report, path: evaluation/results/}

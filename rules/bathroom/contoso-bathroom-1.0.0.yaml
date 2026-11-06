@@ -1,0 +1,52 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-bathroom
+version: 1.0.0
+category: bathroom
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: BR-001
+  title: Bathroom visible
+  type: coverage_or_full_view
+  weight: 3
+  mandatory: true
+  requirement: Bathroom is clearly visible.
+  cannotDetermineWhen:
+  - Image is too dark, blurred or close-up to show the room
+  - image does not show a bathroom
+- id: BR-002
+  title: Floor and walls clean
+  type: condition_or_cleanliness
+  weight: 4
+  mandatory: true
+  requirement: Floor and walls are clean.
+  cannotDetermineWhen:
+  - Floor or walls are mostly outside the frame
+  - lighting is too dark to judge cleanliness
+  ignore:
+  - Ignore normal wear, ceiling stains, peeling paint, or cosmetic issues.
+- id: BR-003
+  title: Safe and usable
+  type: condition_or_cleanliness
+  weight: 3
+  mandatory: false
+  requirement: Bathroom appears safe and usable.
+  cannotDetermineWhen:
+  - Too little of the room is visible to judge safety or usability
+  ignore:
+  - Ignore normal wear, ceiling stains, peeling paint, or cosmetic issues.
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

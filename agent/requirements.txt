@@ -1,0 +1,9 @@
+# Hosted agent container. VERIFY versions against current Foundry hosted-agent samples.
+agent-framework
+agent-framework-foundry-hosting
+azure-ai-agentserver-optimization
+azure-identity
+azure-storage-blob>=12.19
+pydantic
+pyyaml
+pillow

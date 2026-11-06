@@ -1,0 +1,46 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-contents-sheet
+version: 1.0.0
+category: eos-contents-sheet
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: ECS-001
+  title: Correct summary sheet
+  type: visual_presence
+  weight: 3
+  mandatory: true
+  requirement: Correct EOS summary sheet.
+  cannotDetermineWhen:
+  - Form title or layout is outside the frame or unreadable
+- id: ECS-002
+  title: Sheet legible
+  type: text_legibility
+  weight: 3
+  mandatory: true
+  requirement: Sheet is legible.
+  cannotDetermineWhen:
+  - Image is blurred, glared, too dark or too distant
+- id: ECS-003
+  title: Store, container and seal info readable
+  type: date_or_code_readability
+  weight: 4
+  mandatory: true
+  requirement: Store, container, and seal information can be read.
+  cannotDetermineWhen:
+  - The store, container or seal fields are cropped, folded or covered
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

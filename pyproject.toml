@@ -1,0 +1,19 @@
+[project]
+name = "store-image-validator"
+version = "0.1.0"
+description = "Rule-driven store image inspection with a Microsoft Foundry quality loop"
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6", "pillow>=10"]
+
+[project.optional-dependencies]
+foundry = ["azure-ai-projects>=2.8.0", "azure-identity>=1.19", "azure-storage-blob>=12.19", "openai>=1.99",
+           "azure-monitor-opentelemetry>=1.6", "opentelemetry-sdk>=1.30", "python-dotenv>=1"]
+
+[project.scripts]
+siv = "siv.cli:main"
+
+[tool.setuptools]
+packages = ["siv", "siv.analyzers"]
+
+[tool.setuptools.package-data]
+siv = ["schemas/*.json"]

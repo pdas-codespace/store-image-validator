@@ -1,0 +1,35 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_rule_pack",
+      "description": "Return the atomic rules (id, type, requirement, accepted alternatives, ignore scopes, cannot-determine conditions) for the exact pinned rule-pack version. Call once per request before adjudicating. Fails if the version does not exist; never substitute another version.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "rule_pack_id": {"type": "string", "description": "Rule pack identifier from the request, e.g. contoso-storefront"},
+          "version": {"type": "string", "description": "Exact semantic version from the request, e.g. 1.0.0"}
+        },
+        "required": ["rule_pack_id", "version"],
+        "additionalProperties": false
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "retrieve_policy_guidance",
+      "description": "Return interpretation guidance (exceptions, accepted alternatives, scoping notes) for the given category and rule-pack version. Use it to interpret rules, not to change them. If it returns an error, continue with the rule text only and add a note to uncertainties.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "category": {"type": "string", "description": "Inspection category from the request, e.g. storefront"},
+          "rule_pack_id": {"type": "string"},
+          "version": {"type": "string"}
+        },
+        "required": ["category", "rule_pack_id", "version"],
+        "additionalProperties": false
+      }
+    }
+  }
+]

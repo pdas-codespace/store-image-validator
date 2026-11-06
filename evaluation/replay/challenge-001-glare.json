@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "submission_id": "replay",
+  "category": "storefront",
+  "rule_pack": {
+    "id": "contoso-storefront",
+    "version": "1.0.0"
+  },
+  "image_assessment": {
+    "usable": true,
+    "coverage_sufficient": true,
+    "blur": "low",
+    "glare": "high",
+    "occlusion": "low",
+    "issues": [
+      "IMAGE_GLARE"
+    ]
+  },
+  "observations": [
+    {
+      "observation_id": "obs-001",
+      "image_id": "img-001",
+      "description": "Full single-unit facade with both side edges and entrance in frame",
+      "region": {
+        "x": 0.0375,
+        "y": 0.18,
+        "width": 0.925,
+        "height": 0.64
+      },
+      "confidence": 0.95
+    },
+    {
+      "observation_id": "obs-002",
+      "image_id": "img-001",
+      "description": "Sign reading 'CONTOSO' in orange on black",
+      "region": {
+        "x": 0.2625,
+        "y": 0.23,
+        "width": 0.475,
+        "height": 0.13
+      },
+      "confidence": 0.98
+    },
+    {
+      "observation_id": "obs-004",
+      "image_id": "img-001",
+      "description": "Orange cling on right window",
+      "region": {
+        "x": 0.744,
+        "y": 0.42,
+        "width": 0.169,
+        "height": 0.34
+      },
+      "confidence": 0.95
+    },
+    {
+      "observation_id": "obs-009",
+      "image_id": "img-001",
+      "description": "Glare washing out left window and doors",
+      "region": {
+        "x": 0.4125,
+        "y": 0.43,
+        "width": 0.175,
+        "height": 0.39
+      },
+      "confidence": 0.9
+    }
+  ],
+  "rule_results": [
+    {
+      "rule_id": "SF-001",
+      "status": "PASS",
+      "confidence": 0.96,
+      "reason": "Entire facade including both edges and entrance is in frame.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-001",
+          "region": {
+            "x": 0.0375,
+            "y": 0.18,
+            "width": 0.925,
+            "height": 0.64
+          },
+          "description": "Full facade"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-002",
+      "status": "PASS",
+      "confidence": 0.97,
+      "reason": "'CONTOSO' is fully legible.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-002",
+          "region": {
+            "x": 0.2625,
+            "y": 0.23,
+            "width": 0.475,
+            "height": 0.13
+          },
+          "description": "Readable sign"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-003",
+      "status": "PASS",
+      "confidence": 0.55,
+      "reason": "Right window cling visible; left window and doors are washed out by glare but appear to have graphics.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-004",
+          "region": {
+            "x": 0.744,
+            "y": 0.42,
+            "width": 0.169,
+            "height": 0.34
+          },
+          "description": "Right window cling"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-004",
+      "status": "PASS",
+      "confidence": 0.9,
+      "reason": "No previous-tenant remnants around the Contoso sign.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-002",
+          "region": {
+            "x": 0.2625,
+            "y": 0.23,
+            "width": 0.475,
+            "height": 0.13
+          },
+          "description": "Clean band around sign"
+        }
+      ],
+      "missing_evidence": []
+    }
+  ],
+  "uncertainties": [
+    "Door clings partly hidden by glare."
+  ],
+  "recommended_next_image": "Retake from a slight angle or at a different time of day to avoid glare on the doors and left window."
+}

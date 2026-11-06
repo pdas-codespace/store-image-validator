@@ -1,0 +1,63 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-storefront
+version: 1.0.0
+category: storefront
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: SF-001
+  title: Full storefront view
+  type: coverage_or_full_view
+  weight: 2.5
+  mandatory: true
+  requirement: Full view of the storefront or approved plaza directory sign.
+  acceptedAlternatives:
+  - Plaza directory signs are acceptable.
+  cannotDetermineWhen:
+  - Storefront boundaries are outside the frame
+  - sign is materially occluded
+  - image is too blurred to identify the location
+- id: SF-002
+  title: Branding readable
+  type: text_legibility
+  weight: 2.5
+  mandatory: true
+  requirement: Contoso branding is clearly readable.
+  cannotDetermineWhen:
+  - Sign is blurred, glared or too distant to read
+  - sign is outside the frame
+- id: SF-003
+  title: Window and door clings
+  type: visual_presence
+  weight: 2
+  mandatory: false
+  requirement: Window and door clings are visible.
+  cannotDetermineWhen:
+  - Windows or entrance doors are outside the frame
+  - glass is obscured by heavy glare or reflections
+- id: SF-004
+  title: Previous tenant remnants
+  type: prohibited_visual
+  weight: 3
+  mandatory: false
+  requirement: No visible remnants of a previous tenant around the Contoso sign.
+  cannotDetermineWhen:
+  - The area directly around the Contoso sign is not visible
+  ignore:
+  - Temporary seasonal signage is acceptable.
+  - Only deduct for previous tenant remnants that are directly around the Contoso sign.
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

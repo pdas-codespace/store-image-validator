@@ -1,0 +1,197 @@
+{
+  "schema_version": "1.0",
+  "submission_id": "replay",
+  "category": "storefront",
+  "rule_pack": {
+    "id": "contoso-storefront",
+    "version": "1.0.0"
+  },
+  "image_assessment": {
+    "usable": true,
+    "coverage_sufficient": true,
+    "blur": "low",
+    "glare": "low",
+    "occlusion": "low",
+    "issues": []
+  },
+  "observations": [
+    {
+      "observation_id": "obs-001",
+      "image_id": "img-001",
+      "description": "Full single-unit facade with both side edges and entrance in frame",
+      "region": {
+        "x": 0.0375,
+        "y": 0.18,
+        "width": 0.925,
+        "height": 0.64
+      },
+      "confidence": 0.95
+    },
+    {
+      "observation_id": "obs-002",
+      "image_id": "img-001",
+      "description": "Sign reading 'CONTOSO' in orange on black",
+      "region": {
+        "x": 0.2625,
+        "y": 0.23,
+        "width": 0.475,
+        "height": 0.13
+      },
+      "confidence": 0.98
+    },
+    {
+      "observation_id": "obs-003",
+      "image_id": "img-001",
+      "description": "Orange circular cling with 'CONTOSO' text on left window",
+      "region": {
+        "x": 0.0875,
+        "y": 0.42,
+        "width": 0.169,
+        "height": 0.34
+      },
+      "confidence": 0.95
+    },
+    {
+      "observation_id": "obs-004",
+      "image_id": "img-001",
+      "description": "Orange circular cling with 'CONTOSO' text on right window",
+      "region": {
+        "x": 0.744,
+        "y": 0.42,
+        "width": 0.169,
+        "height": 0.34
+      },
+      "confidence": 0.95
+    },
+    {
+      "observation_id": "obs-005",
+      "image_id": "img-001",
+      "description": "Purple diamond clings on both entrance doors",
+      "region": {
+        "x": 0.4125,
+        "y": 0.43,
+        "width": 0.175,
+        "height": 0.39
+      },
+      "confidence": 0.93
+    },
+    {
+      "observation_id": "obs-007",
+      "image_id": "img-001",
+      "description": "Faded 'OLD TENANT' text far left on facade",
+      "region": {
+        "x": 0.09,
+        "y": 0.36,
+        "width": 0.2,
+        "height": 0.04
+      },
+      "confidence": 0.8
+    }
+  ],
+  "rule_results": [
+    {
+      "rule_id": "SF-001",
+      "status": "PASS",
+      "confidence": 0.96,
+      "reason": "Entire facade including both edges and entrance is in frame.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-001",
+          "region": {
+            "x": 0.0375,
+            "y": 0.18,
+            "width": 0.925,
+            "height": 0.64
+          },
+          "description": "Full facade"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-002",
+      "status": "PASS",
+      "confidence": 0.97,
+      "reason": "'CONTOSO' is fully legible.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-002",
+          "region": {
+            "x": 0.2625,
+            "y": 0.23,
+            "width": 0.475,
+            "height": 0.13
+          },
+          "description": "Readable sign"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-003",
+      "status": "PASS",
+      "confidence": 0.93,
+      "reason": "Clings visible on both windows and the entrance doors.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-003",
+          "region": {
+            "x": 0.0875,
+            "y": 0.42,
+            "width": 0.169,
+            "height": 0.34
+          },
+          "description": "Window cling"
+        },
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-005",
+          "region": {
+            "x": 0.4125,
+            "y": 0.43,
+            "width": 0.175,
+            "height": 0.39
+          },
+          "description": "Door clings"
+        }
+      ],
+      "missing_evidence": []
+    },
+    {
+      "rule_id": "SF-004",
+      "status": "PASS",
+      "confidence": 0.86,
+      "reason": "Faded 'OLD TENANT' text is on the far-left facade, outside the area around the Contoso sign, so it is ignored.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-002",
+          "region": {
+            "x": 0.2625,
+            "y": 0.23,
+            "width": 0.475,
+            "height": 0.13
+          },
+          "description": "Clean band around sign"
+        },
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-007",
+          "region": {
+            "x": 0.09,
+            "y": 0.36,
+            "width": 0.2,
+            "height": 0.04
+          },
+          "description": "Remnant outside scope"
+        }
+      ],
+      "missing_evidence": []
+    }
+  ],
+  "uncertainties": [],
+  "recommended_next_image": null
+}

@@ -1,0 +1,47 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-open-container
+version: 1.0.0
+category: eos-open-container
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: EOC-001
+  title: Contents match container type
+  type: visual_presence
+  weight: 3
+  mandatory: true
+  requirement: Contents are appropriate for the container type.
+  cannotDetermineWhen:
+  - Container type is not stated in the request and cannot be seen
+  - contents are hidden by darkness or the door frame
+- id: EOC-002
+  title: No contamination
+  type: prohibited_visual
+  weight: 4
+  mandatory: true
+  requirement: No contamination with fixtures, registers, or communication kits.
+  cannotDetermineWhen:
+  - Large parts of the load are not visible
+- id: EOC-003
+  title: Orderly and secure load
+  type: condition_or_cleanliness
+  weight: 3
+  mandatory: false
+  requirement: Load is orderly and secure.
+  cannotDetermineWhen:
+  - The load is mostly outside the frame or too dark to judge
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

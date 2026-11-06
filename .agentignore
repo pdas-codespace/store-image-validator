@@ -1,0 +1,17 @@
+.env
+.env.*
+.venv/
+.azure/
+infra/
+.runs/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+evaluation/results/
+insights/out/
+deployments/
+Dockerfile
+tests/

@@ -1,0 +1,55 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-seal
+version: 1.0.0
+category: eos-seal
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: ESL-001
+  title: Plastic seal present
+  type: visual_presence
+  weight: 3
+  mandatory: true
+  requirement: Plastic security seal is present.
+  cannotDetermineWhen:
+  - The door latch area is outside the frame or blocked
+- id: ESL-002
+  title: Seal intact
+  type: seal_or_label_integrity
+  weight: 3
+  mandatory: true
+  requirement: Seal is intact.
+  cannotDetermineWhen:
+  - Part of the seal body or locking end is hidden
+- id: ESL-003
+  title: Seal number readable
+  type: date_or_code_readability
+  weight: 3
+  mandatory: true
+  requirement: Seal number is readable.
+  cannotDetermineWhen:
+  - Number is blurred, glared, turned away or too small to read
+- id: ESL-004
+  title: Expected seal colour
+  type: comparison_to_reference
+  weight: 1
+  mandatory: false
+  requirement: Seal colour matches the expected seal colour. If no expected colour is given in the policy guidance,
+    return NOT_APPLICABLE.
+  cannotDetermineWhen:
+  - Colour cannot be judged because of lighting or glare
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

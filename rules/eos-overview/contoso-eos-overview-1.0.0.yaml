@@ -1,0 +1,54 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-overview
+version: 1.0.0
+category: eos-overview
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: EOV-001
+  title: Contents organized
+  type: condition_or_cleanliness
+  weight: 2.5
+  mandatory: false
+  requirement: Container contents appear organized.
+  cannotDetermineWhen:
+  - The load is mostly outside the frame or too dark to judge
+- id: EOV-002
+  title: Load secure
+  type: condition_or_cleanliness
+  weight: 2.5
+  mandatory: false
+  requirement: Load is secure.
+  cannotDetermineWhen:
+  - Restraints and load edges are not visible
+- id: EOV-003
+  title: No contamination
+  type: prohibited_visual
+  weight: 3
+  mandatory: true
+  requirement: No obvious contamination or prohibited items.
+  cannotDetermineWhen:
+  - Large parts of the load are not visible
+- id: EOV-004
+  title: Container undamaged
+  type: condition_or_cleanliness
+  weight: 2
+  mandatory: false
+  requirement: Container appears undamaged.
+  cannotDetermineWhen:
+  - Too little of the container body is visible
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

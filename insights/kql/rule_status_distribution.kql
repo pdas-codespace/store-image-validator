@@ -1,0 +1,7 @@
+// Per-rule status mix and mean confidence; spikes in CANNOT_DETERMINE flag rules or capture problems.
+dependencies
+| where timestamp > ago(7d) and name == "rule_result"
+| extend rule = tostring(customDimensions["rule.id"]), status = tostring(customDimensions["rule.status"]),
+         conf = todouble(customDimensions["rule.confidence"])
+| summarize n = count(), avg_conf = round(avg(conf), 3) by rule, status
+| order by rule asc, n desc

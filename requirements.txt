@@ -1,0 +1,16 @@
+# Core (offline: pipeline, scoring, replay, evaluation harness, tests)
+pyyaml>=6
+pillow>=10
+python-dotenv>=1
+# Foundry (analyze with a real model, cloud evaluation, insights, tracing)
+azure-ai-projects>=2.8.0
+azure-identity>=1.19
+azure-storage-blob>=12.19
+openai>=1.99
+azure-monitor-opentelemetry>=1.6
+opentelemetry-sdk>=1.30
+# Hosted agent runtime (used by azd code deploy from repo root)
+agent-framework
+agent-framework-foundry-hosting
+azure-ai-agentserver-optimization
+pydantic

@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "submission_id": "replay",
+  "category": "storefront",
+  "rule_pack": {
+    "id": "contoso-storefront",
+    "version": "1.0.0"
+  },
+  "image_assessment": {
+    "usable": true,
+    "coverage_sufficient": false,
+    "blur": "low",
+    "glare": "low",
+    "occlusion": "low",
+    "issues": [
+      "INCOMPLETE_COVERAGE"
+    ]
+  },
+  "observations": [
+    {
+      "observation_id": "obs-003",
+      "image_id": "img-001",
+      "description": "Orange cling on left window",
+      "region": {
+        "x": 0.0875,
+        "y": 0.42,
+        "width": 0.169,
+        "height": 0.34
+      },
+      "confidence": 0.95
+    }
+  ],
+  "rule_results": [
+    {
+      "rule_id": "SF-001",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.9,
+      "reason": "Right side of the facade, right window and most of the entrance are outside the frame.",
+      "evidence": [],
+      "missing_evidence": [
+        "Right edge of storefront",
+        "Entrance doors",
+        "Right window"
+      ]
+    },
+    {
+      "rule_id": "SF-002",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.85,
+      "reason": "Only part of the branding is visible; the rest of the sign is cut off.",
+      "evidence": [],
+      "missing_evidence": [
+        "Right half of the sign"
+      ]
+    },
+    {
+      "rule_id": "SF-003",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.85,
+      "reason": "Left window cling is visible but the doors and right window are out of frame.",
+      "evidence": [
+        {
+          "image_id": "img-001",
+          "observation_id": "obs-003",
+          "region": {
+            "x": 0.0875,
+            "y": 0.42,
+            "width": 0.169,
+            "height": 0.34
+          },
+          "description": "Left window cling"
+        }
+      ],
+      "missing_evidence": [
+        "Entrance doors",
+        "Right window"
+      ]
+    },
+    {
+      "rule_id": "SF-004",
+      "status": "CANNOT_DETERMINE",
+      "confidence": 0.8,
+      "reason": "Only the left part of the area around the sign is visible.",
+      "evidence": [],
+      "missing_evidence": [
+        "Right half of the area surrounding the sign"
+      ]
+    }
+  ],
+  "uncertainties": [
+    "Image is cropped at roughly the middle of the storefront."
+  ],
+  "recommended_next_image": "Step back and take one centered photo showing the whole storefront, including the full sign, both windows and the entrance doors."
+}

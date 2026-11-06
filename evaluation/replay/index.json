@@ -1,0 +1,13 @@
+{
+  "_comment": "SYNTHETIC recordings keyed by image sha256 prefixes. Regenerate with scripts/build_eval_fixtures.py.",
+  "recordings": {
+    "2a20113443468acb": "golden-001-compliant.json",
+    "3e50bf394ec1d742": "golden-002-noncompliant.json",
+    "af3ca53ff89cb569": "golden-003-remnant-far.json",
+    "62f80008724a391d": "golden-004-remnant-near-sign.json",
+    "0dfe341ae7ecb3ca": "abstain-001-cropped.json",
+    "f674b162814dc8da": "abstain-002-severe-blur.json",
+    "0198ddc0e278fba9": "adv-001-image-injection.json",
+    "ccd2cf643f73935c": "challenge-001-glare.json"
+  }
+}

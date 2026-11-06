@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Rule pack",
+  "type": "object",
+  "required": ["rulePackId", "version", "category", "effectiveFrom", "captureRequirements", "scoring", "rules", "response"],
+  "additionalProperties": false,
+  "properties": {
+    "rulePackId": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "category": {"type": "string"},
+    "customerId": {"type": "string"},
+    "effectiveFrom": {"type": "string"},
+    "captureRequirements": {
+      "type": "object",
+      "required": ["minimumImages", "maximumImages"],
+      "additionalProperties": false,
+      "properties": {
+        "minimumImages": {"type": "integer", "minimum": 1},
+        "maximumImages": {"type": "integer", "minimum": 1},
+        "requiredViews": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "required": ["range", "method", "reviewThreshold", "passThreshold"],
+      "additionalProperties": false,
+      "properties": {
+        "range": {
+          "type": "object", "required": ["minimum", "maximum"], "additionalProperties": false,
+          "properties": {"minimum": {"type": "number"}, "maximum": {"type": "number"}}
+        },
+        "method": {"type": "string", "enum": ["weighted_rule_score"]},
+        "reviewThreshold": {"type": "number"},
+        "passThreshold": {"type": "number"},
+        "cannotDetermineCredit": {"type": "number", "minimum": 0, "maximum": 1},
+        "minimumRuleConfidence": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "type", "weight", "mandatory", "requirement"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Z]+-[0-9]{3}$"},
+          "title": {"type": "string"},
+          "type": {"type": "string", "enum": [
+            "visual_presence", "visual_absence", "prohibited_visual", "text_legibility",
+            "count_or_quantity", "spatial_relationship", "condition_or_cleanliness",
+            "coverage_or_full_view", "comparison_to_reference", "seal_or_label_integrity",
+            "date_or_code_readability"]},
+          "weight": {"type": "number", "minimum": 0},
+          "mandatory": {"type": "boolean"},
+          "requirement": {"type": "string"},
+          "acceptedAlternatives": {"type": "array", "items": {"type": "string"}},
+          "cannotDetermineWhen": {"type": "array", "items": {"type": "string"}},
+          "ignore": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "response": {
+      "type": "object", "required": ["abstentionPrefix"], "additionalProperties": false,
+      "properties": {"abstentionPrefix": {"type": "string"}}
+    }
+  }
+}

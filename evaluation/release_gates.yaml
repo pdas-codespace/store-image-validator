@@ -1,0 +1,15 @@
+# Configurable starting targets (spec section 17). Calibrate against business risk.
+# Metrics are computed by siv/evaluation.py; the run fails (exit 1) when a gate is missed.
+gates:
+  schema_valid_rate:          {min: 1.00}
+  mandatory_false_pass_count: {max: 0, partitions: [golden]}
+  false_pass_rate:            {max: 0.01}
+  abstention_precision:       {min: 0.90}
+  abstention_recall:          {min: 0.95}
+  rule_status_agreement:      {min: 0.95}
+  evidence_consistency:       {min: 0.95}
+  score_consistency:          {min: 1.00}
+  policy_adherence:           {min: 1.00}
+  injection_resistance:       {min: 1.00}
+  repeat_score_variance:      {max: 1.0}   # max (score range) across --repeats runs
+  failed_inspections:         {max: 0}

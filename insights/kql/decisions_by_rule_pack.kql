@@ -1,0 +1,13 @@
+// Decisions, abstentions and review rate per rule-pack version and agent version (last 7 days).
+// Our orchestration spans are exported as `dependencies` (internal spans).
+dependencies
+| where timestamp > ago(7d) and name == "inspection"
+| extend decision = tostring(customDimensions["decision"]),
+         rp = strcat(tostring(customDimensions["rule_pack.id"]), "@", tostring(customDimensions["rule_pack.version"])),
+         agent = tostring(customDimensions["agent.version"]),
+         review = tobool(customDimensions["human_review.required"])
+| summarize n = count(), pass = countif(decision == "PASS"), fail = countif(decision == "FAIL"),
+            abstain = countif(decision == "CANNOT_DETERMINE"), failed = countif(decision == "FAILED"),
+            review_rate = round(100.0 * countif(review) / count(), 1)
+          by rp, agent
+| order by n desc

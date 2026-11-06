@@ -1,0 +1,46 @@
+# GENERATED from rules/source/contoso-validation-rules.md by scripts/rules_from_md.py. Edit the source, not this file.
+# Weights, thresholds and mandatory flags are business-owned; the optimizer must not change them.
+rulePackId: contoso-eos-closed-container
+version: 1.0.0
+category: eos-closed-container
+customerId: contoso
+effectiveFrom: '2026-10-01'
+captureRequirements:
+  minimumImages: 1
+  maximumImages: 5
+scoring:
+  range:
+    minimum: 0
+    maximum: 10
+  method: weighted_rule_score
+  reviewThreshold: 6
+  passThreshold: 8
+  cannotDetermineCredit: 0.5
+  minimumRuleConfidence: 0.65
+rules:
+- id: ECC-001
+  title: Fully closed
+  type: visual_presence
+  weight: 4
+  mandatory: true
+  requirement: Container is fully closed.
+  cannotDetermineWhen:
+  - The doors are outside the frame or blocked from view
+- id: ECC-002
+  title: No structural damage
+  type: condition_or_cleanliness
+  weight: 3
+  mandatory: false
+  requirement: No visible structural damage.
+  cannotDetermineWhen:
+  - Large parts of the container body are outside the frame or too dark
+- id: ECC-003
+  title: Suitable for transport
+  type: condition_or_cleanliness
+  weight: 3
+  mandatory: false
+  requirement: Container appears suitable for transport.
+  cannotDetermineWhen:
+  - Too little of the container is visible to judge
+response:
+  abstentionPrefix: 'Can''t determine with confidence from images submitted and here''s why:'

@@ -1,0 +1,9 @@
+# Optimizer baseline (Foundry Agent Optimizer, hosted-agent format).
+# The optimizer may change instructions, skills, tool descriptions and model.
+# It must NOT change business config: rule weights, thresholds, mandatory flags,
+# review requirements or policy dates live in rules/*.yaml, outside this folder.
+model: gpt-5.5   # your vision-capable deployment name; override with MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME
+instruction_file: instructions.md
+tools_file: tools.json
+skill_dir: skills
+temperature: null  # Omit sampling parameters unless explicitly supported by the selected model.

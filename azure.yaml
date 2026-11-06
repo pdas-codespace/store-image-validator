@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+# Phase 1: only the Foundry project + hosted agent. Event Grid / Service Bus / storage come later.
+# VERIFY with `azd ai agent init` output for your azd extension version.
+name: store-image-validator
+requiredVersions:
+    extensions:
+        azure.ai.agents: ">=1.0.0-beta.8"
+        azure.ai.projects: ">=1.0.0-beta.4"
+services:
+    ai-project:
+        host: azure.ai.project
+        endpoint: ${FOUNDRY_PROJECT_ENDPOINT}   # uncomment to reuse an existing project
+        deployments:
+            - name: gpt-5.5
+              model: {format: OpenAI, name: gpt-5.5, version: "2025-04-14"}
+              sku: {name: GlobalStandard, capacity: 50}
+    store-image-inspector:
+        host: azure.ai.agent
+        project: .
+        language: python
+        codeConfiguration:
+            runtime: python_3_13
+            entryPoint: agent/main.py
+            dependencyResolution: remote_build
+        uses: [ai-project]
+        kind: hosted
+        name: store-image-inspector
+        description: Multimodal store image inspector (evidence + per-rule adjudication; no scoring).
+        startupCommand: python agent/main.py
+        protocols:
+            - protocol: responses
+              version: 2.0.0
+        env:
+            MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME: ${MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME}
+        container:
+            resources: {cpu: "1.0", memory: 2Gi}
+infra:
+    provider: microsoft.foundry

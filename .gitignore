@@ -1,0 +1,41 @@
+.env
+.runs/
+__pycache__/
+evaluation/results/
+insights/out/
+insights/annotations.jsonl
+.azure/
+deployments/ncus/source/
+docs/ncus-demo.md
+docs/ncus-task-actions.md
+docs/foundry-evaluation-schema-and-blob-flow.md
+docs/demo-guide.md
+scripts/ncus_demo.py
+.venv/
+store_image_validator.egg-info/
+caches
+deployments/ncus
+
+
+
+# Local configuration and generated files
+.env.*
+!.env.example
+.venv/
+venv/
+*.egg-info/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Publish only approved synthetic image fixtures
+/fixtures/images/*
+!/fixtures/images/syn-*.jpg
+'@ | Add-Content .gitignore

@@ -1,0 +1,6 @@
+// Reconstruct one decision end to end. Replace the submission id.
+let sub = "sub-REPLACE";
+dependencies
+| where customDimensions["submission.id"] == sub or customDimensions["correlation.id"] == strcat("corr-", sub)
+| project timestamp, name, duration, operation_Id, customDimensions
+| order by timestamp asc

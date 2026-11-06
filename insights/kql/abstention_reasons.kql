@@ -1,0 +1,8 @@
+// Top abstention causes and image issues: feeds capture guidance and the challenge dataset.
+dependencies
+| where timestamp > ago(7d) and name == "inspection"
+| where tostring(customDimensions["decision"]) == "CANNOT_DETERMINE"
+| extend issues = todynamic(tostring(customDimensions["image.issues"]))
+| mv-expand issue = issues to typeof(string)
+| summarize cases = dcount(tostring(customDimensions["submission.id"])) by issue
+| order by cases desc

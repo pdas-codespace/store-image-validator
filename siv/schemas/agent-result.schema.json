@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent inspection result (model-owned fields only)",
+  "description": "Strict-mode compatible: every property is required and additionalProperties is false. The agent never returns score or decision; the orchestrator adds them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "submission_id", "category", "rule_pack", "image_assessment", "observations", "rule_results", "uncertainties", "recommended_next_image"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "submission_id": {"type": "string"},
+    "category": {"type": "string"},
+    "rule_pack": {
+      "type": "object", "additionalProperties": false, "required": ["id", "version"],
+      "properties": {"id": {"type": "string"}, "version": {"type": "string"}}
+    },
+    "image_assessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["usable", "coverage_sufficient", "blur", "glare", "occlusion", "issues"],
+      "properties": {
+        "usable": {"type": "boolean"},
+        "coverage_sufficient": {"type": "boolean"},
+        "blur": {"type": "string", "enum": ["low", "medium", "high"]},
+        "glare": {"type": "string", "enum": ["low", "medium", "high"]},
+        "occlusion": {"type": "string", "enum": ["low", "medium", "high"]},
+        "issues": {"type": "array", "items": {"type": "string", "enum": [
+          "IMAGE_BLUR", "IMAGE_GLARE", "IMAGE_TOO_DARK", "IMAGE_TOO_DISTANT", "INCOMPLETE_COVERAGE",
+          "REQUIRED_ANGLE_MISSING", "BRANDING_UNREADABLE", "OBJECT_OCCLUDED", "CONTRADICTORY_IMAGES",
+          "UNSUPPORTED_CATEGORY", "UNSAFE_IMAGE_INSTRUCTION"]}}
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["observation_id", "image_id", "description", "region", "confidence"],
+        "properties": {
+          "observation_id": {"type": "string"},
+          "image_id": {"type": "string"},
+          "description": {"type": "string"},
+          "region": {"$ref": "#/$defs/region"},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "rule_results": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["rule_id", "status", "confidence", "reason", "evidence", "missing_evidence"],
+        "properties": {
+          "rule_id": {"type": "string"},
+          "status": {"type": "string", "enum": ["PASS", "FAIL", "CANNOT_DETERMINE", "NOT_APPLICABLE"]},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "reason": {"type": "string"},
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["image_id", "observation_id", "region", "description"],
+              "properties": {
+                "image_id": {"type": "string"},
+                "observation_id": {"type": ["string", "null"]},
+                "region": {"anyOf": [{"$ref": "#/$defs/region"}, {"type": "null"}]},
+                "description": {"type": "string"}
+              }
+            }
+          },
+          "missing_evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "uncertainties": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_image": {"type": ["string", "null"]}
+  },
+  "$defs": {
+    "region": {
+      "type": "object", "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": {"type": "number", "minimum": 0, "maximum": 1},
+        "y": {"type": "number", "minimum": 0, "maximum": 1},
+        "width": {"type": "number", "minimum": 0, "maximum": 1},
+        "height": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    }
+  }
+}

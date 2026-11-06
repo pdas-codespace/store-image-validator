@@ -1,0 +1,18 @@
+# Dataset + evaluators for `azd ai agent eval run` / `azd ai agent optimize` against the
+# deployed hosted agent. VERIFY field names against your azd extension (`azd ai agent eval --help`).
+# Register the custom evaluators first: python evaluation/run_foundry_eval.py agent-target ...
+name: store-image-inspector-optimizer
+agent:
+  name: store-image-inspector
+  kind: hosted
+dataset:
+  local_uri: ../evaluation/datasets/optimizer_tasks.jsonl   # built by optimizer/build_optimizer_dataset.py
+evaluators:
+  - siv_schema_validity
+  - siv_rule_status_accuracy
+  - siv_evidence_consistency
+  - siv_policy_adherence
+  - siv_injection_resistance
+  - builtin.task_adherence
+options:
+  eval_model: ${MICROSOFT_FOUNDRY_MODEL_DEPLOYMENT_NAME}

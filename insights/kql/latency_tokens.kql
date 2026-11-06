@@ -1,0 +1,8 @@
+// Agent latency and token use per attempt; schema rejections show up as attempt > 1.
+dependencies
+| where timestamp > ago(7d) and name == "invoke_agent"
+| extend ms = todouble(customDimensions["latency.image_analysis_ms"]),
+         tin = toint(customDimensions["input_tokens"]), tout = toint(customDimensions["output_tokens"]),
+         attempt = toint(customDimensions["attempt"]), valid = tobool(customDimensions["schema.valid"])
+| summarize calls = count(), p50_ms = percentile(ms, 50), p95_ms = percentile(ms, 95),
+            avg_in = avg(tin), avg_out = avg(tout), retries = countif(attempt > 1), invalid = countif(not(valid))

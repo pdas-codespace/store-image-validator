@@ -1,0 +1,21 @@
+# Stable failure-annotation labels (spec section 14). Do not rename; add new labels only.
+labels:
+  IMAGE_BLUR: Image too blurred to judge one or more rules
+  IMAGE_GLARE: Glare/reflection hides required evidence
+  IMAGE_TOO_DARK: Underexposed
+  IMAGE_TOO_DISTANT: Subject too far to read or see detail
+  INCOMPLETE_COVERAGE: Required area outside the frame
+  REQUIRED_ANGLE_MISSING: Required view not submitted
+  BRANDING_UNREADABLE: Brand text not legible
+  OCR_MISMATCH: Model misread visible text
+  OBJECT_OCCLUDED: Required object blocked
+  RULE_AMBIGUOUS: Rule text allows more than one reasonable reading
+  POLICY_RETRIEVAL_ERROR: Policy guidance unavailable or wrong
+  WRONG_POLICY_VERSION: Evaluated against the wrong rule/policy version
+  UNSUPPORTED_CATEGORY: Images do not match the declared category
+  CONTRADICTORY_IMAGES: Images disagree and were not reconciled
+  FALSE_PASS: Agent/decision passed a noncompliant case
+  FALSE_FAIL: Agent/decision failed a compliant case
+  FALSE_ABSTENTION: Abstained although evidence was sufficient
+  UNSAFE_IMAGE_INSTRUCTION: Followed or was influenced by text inside an image
+  MISSED_VISIBLE_EVIDENCE: Said CANNOT_DETERMINE/FAIL although evidence was visible
